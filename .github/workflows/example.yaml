@@ -1,0 +1,79 @@
+name: Example
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache: false
+      - name: Verify Go
+        run: go version
+      - name: Build
+        run: |
+          go build -ldflags="-s -w" -o poc ./example
+
+  linux:
+    name: Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl-dev libasound2-dev libxxf86vm-dev
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache: false
+      - name: Verify Go
+        run: go version
+      - name: Build
+        run: |
+          go build -ldflags="-s -w" -o poc ./example
+
+  macOSamd64:
+    name: MacOS (amd64)
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache: false
+      - name: Verify Go
+        run: go version
+      - name: Build
+        run: |
+          go build -ldflags="-s -w" -o poc ./example
+
+  macOSarm64:
+    name: MacOS (arm64)
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache: false
+      - name: Verify Go
+        run: go version
+      - name: Build
+        run: |
+          go build -ldflags="-s -w" -o poc ./example
