@@ -17,7 +17,7 @@ The GLFW API is kept intentionally compatible with `github.com/go-gl/glfw`. Repo
 
 ## Usage
 
-Either import directly `github.com/nitrix/glfw-go/glfw` or if you have transitive dependencies, then you'll want to add `replace github.com/go-gl/glfw => github.com/nitrix/glfw-go/glfw` to your `go.mod` file.
+Either import directly `github.com/nitrix/glfw-go` or if you have transitive dependencies, then you'll want to add `replace github.com/go-gl/glfw => github.com/nitrix/glfw-go` to your `go.mod` file.
 
 ## License
 
