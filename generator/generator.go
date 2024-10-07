@@ -91,7 +91,7 @@ func generateHeaders() {
 func generateGlfwConstants() {
 	preamble := "package glfw\n"
 	preamble += "\n"
-	preamble += "// #cgo CFLAGS: -Idist/include\n"
+	preamble += "// #cgo CFLAGS: -I../dist/include\n"
 	preamble += "// #include \"GLFW/glfw3.h\"\n"
 	preamble += "import \"C\"\n"
 	preamble += "\n"
