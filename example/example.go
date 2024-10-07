@@ -3,7 +3,7 @@ package main
 import (
 	"runtime"
 
-	"github.com/nitrix/glfw-go/glfw"
+	"github.com/nitrix/glfw-go"
 )
 
 func init() {

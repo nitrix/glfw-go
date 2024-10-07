@@ -2,11 +2,11 @@ package glfw
 
 //go:generate go run ./generator
 
-// #cgo CFLAGS: -I../dist/include
-// #cgo windows LDFLAGS: -L../dist/windows
-// #cgo darwin,amd64 LDFLAGS: -L../dist/macos/amd64
-// #cgo darwin,arm64 LDFLAGS: -L../dist/macos/arm64
-// #cgo linux LDFLAGS: -L../dist/linux
+// #cgo CFLAGS: -Idist/include
+// #cgo windows LDFLAGS: -Ldist/windows
+// #cgo darwin,amd64 LDFLAGS: -Ldist/macos/amd64
+// #cgo darwin,arm64 LDFLAGS: -Ldist/macos/arm64
+// #cgo linux LDFLAGS: -Ldist/linux
 // #cgo LDFLAGS: -lglfw3
 // #cgo windows LDFLAGS: -limm32 -luser32 -lkernel32 -lgdi32 -lshell32
 // #cgo darwin LDFLAGS: -framework CoreFoundation -framework Cocoa -framework IOKit -framework QuartzCore
