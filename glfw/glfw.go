@@ -4,12 +4,13 @@ package glfw
 
 // #cgo CFLAGS: -I../dist/include
 // #cgo windows LDFLAGS: -L../dist/windows
-// #cgo windows LDFLAGS: -limm32 -luser32 -lkernel32 -lgdi32 -lshell32
 // #cgo darwin,amd64 LDFLAGS: -L../dist/macos/amd64
 // #cgo darwin,arm64 LDFLAGS: -L../dist/macos/arm64
-// #cgo darwin LDFLAGS: -framework CoreFoundation -framework Cocoa -framework IOKit -framework QuartzCore
-// #cgo linux LDFLAGS: -L../dist/linux -lm
+// #cgo linux LDFLAGS: -L../dist/linux
 // #cgo LDFLAGS: -lglfw3
+// #cgo windows LDFLAGS: -limm32 -luser32 -lkernel32 -lgdi32 -lshell32
+// #cgo darwin LDFLAGS: -framework CoreFoundation -framework Cocoa -framework IOKit -framework QuartzCore
+// #cgo linux LDFLAGS: -lm
 // #include "GLFW/glfw3.h"
 // #include <stdlib.h>
 // void glfwSetCursorPosCallback_fix(GLFWwindow *window);
