@@ -97,12 +97,12 @@ func generateGlfwConstants() {
 	preamble += "\n"
 
 	glfwConstants := extractGlfwConstants()
-	err := os.WriteFile("constants.go", []byte(preamble+strings.Join(glfwConstants, "\n")), 0644)
+	err := os.WriteFile("glfw/constants.go", []byte(preamble+strings.Join(glfwConstants, "\n")), 0644)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("Copied %d constants to constants.go\n", len(glfwConstants))
+	fmt.Printf("Copied %d constants to glfw/constants.go\n", len(glfwConstants))
 }
 
 func main() {

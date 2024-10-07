@@ -1,6 +1,6 @@
 package glfw
 
-// #cgo CFLAGS: -Idist/include
+// #cgo CFLAGS: -I../dist/include
 // #include "GLFW/glfw3.h"
 import "C"
 
