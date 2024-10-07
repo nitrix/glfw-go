@@ -1,10 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
-PROJECT(cimgui-go)
+PROJECT(glfw-go)
 
 SET(CMAKE_CXX_STANDARD 17)
 
-SET(CGLM_STATIC ON)
-SET(IMGUI_STATIC ON)
 SET(GLFW_BUILD_X11 ON)
 SET(GLFW_BUILD_WAYLAND OFF)
 SET(GLFW_INSTALL OFF)
@@ -13,34 +11,3 @@ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 ADD_SUBDIRECTORY(thirdparty/glfw)
-ADD_SUBDIRECTORY(thirdparty/glad)
-
-FILE(GLOB
-    cimgui_files
-    "thirdparty/cimgui/*.cpp"
-    "thirdparty/cimgui/imgui/*.cpp"
-    "thirdparty/cimgui/imgui/backends/imgui_impl_glfw.cpp"
-    "thirdparty/cimgui/imgui/backends/imgui_impl_opengl3.cpp"
-)
-
-ADD_LIBRARY(cimgui ${cimgui_files})
-
-TARGET_COMPILE_DEFINITIONS(cimgui PRIVATE IMGUI_IMPL_API=extern\ \"C\")
-TARGET_COMPILE_DEFINITIONS(cimgui PRIVATE IMGUI_IMPL_OPENGL_LOADER_GLAD)
-TARGET_INCLUDE_DIRECTORIES(cimgui PRIVATE thirdparty/cimgui/imgui thirdparty/cimgui/imgui/backends)
-TARGET_COMPILE_DEFINITIONS(cimgui PUBLIC CIMGUI_USE_GLFW CIMGUI_USE_OPENGL3)
-TARGET_LINK_LIBRARIES(cimgui PRIVATE stdc++)
-TARGET_INCLUDE_DIRECTORIES(cimgui PUBLIC thirdparty/cimgui/generator/output)
-TARGET_INCLUDE_DIRECTORIES(cimgui PUBLIC thirdparty/cimgui)
-TARGET_LINK_LIBRARIES(cimgui PRIVATE glfw glad)
-TARGET_COMPILE_DEFINITIONS(cimgui INTERFACE CIMGUI_DEFINE_ENUMS_AND_STRUCTS)
-TARGET_COMPILE_DEFINITIONS(cimgui INTERFACE IMGUI_DISABLE_OBSOLETE_FUNCTIONS)
-TARGET_COMPILE_OPTIONS(cimgui PRIVATE -Wno-format)
-
-IF(WIN32)
-    TARGET_LINK_LIBRARIES(cimgui PRIVATE imm32)
-ENDIF()
-
-IF(APPLE)
-    TARGET_LINK_LIBRARIES(cimgui PRIVATE "-framework CoreFoundation")
-ENDIF()
