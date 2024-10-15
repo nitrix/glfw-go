@@ -10,14 +10,9 @@ Try the example with `go run github.com/nitrix/glfw-go/example@latest`.
 
 The sources for it are located here [example/example.go](example/example.go).
 
-## Progress
-
-The bindings are written manually on an "as-needed" basis while the constants are scraped by a generator.
-The GLFW API is kept intentionally compatible with `github.com/go-gl/glfw`. Report any deviation.
-
 ## Usage
 
-Either import directly `github.com/nitrix/glfw-go` or if you have transitive dependencies, then you'll want to add `replace github.com/go-gl/glfw => github.com/nitrix/glfw-go` to your `go.mod` file.
+The API is kept intentionally compatible and swappable with `github.com/go-gl/glfw`. You may either import directly `github.com/nitrix/glfw-go` or if you have too many transitive dependencies to change, then you coudl add `replace github.com/go-gl/glfw => github.com/nitrix/glfw-go` to your `go.mod` file.
 
 ## License
 
