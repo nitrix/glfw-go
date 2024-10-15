@@ -23,6 +23,7 @@ import "C"
 
 import (
 	"fmt"
+	"runtime"
 	"unsafe"
 )
 
@@ -48,6 +49,10 @@ type Window struct {
 type VideoMode struct {
 	Width  int
 	Height int
+}
+
+func init() {
+	runtime.LockOSThread()
 }
 
 //export goCursorPosCallback

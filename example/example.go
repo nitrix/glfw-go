@@ -1,14 +1,8 @@
 package main
 
 import (
-	"runtime"
-
 	"github.com/nitrix/glfw-go"
 )
-
-func init() {
-	runtime.LockOSThread()
-}
 
 func main() {
 	err := glfw.Init()
