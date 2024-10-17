@@ -23,6 +23,8 @@ import "C"
 
 import (
 	"fmt"
+	"image"
+	"image/draw"
 	"runtime"
 	"unsafe"
 )
@@ -222,6 +224,41 @@ func (w *Window) SetMouseButtonCallback(f func(ww *Window, button MouseButton, a
 
 func (w *Window) SetScrollCallback(f func(ww *Window, xoff float64, yoff float64)) {
 	w.scrollCallback = f
+}
+
+func (w *Window) SetIcon(images []image.Image) {
+	count := len(images)
+
+	cImages := make([]C.GLFWimage, count)
+
+	pinner := runtime.Pinner{}
+	defer pinner.Unpin()
+
+	for i, img := range images {
+		b := img.Bounds()
+
+		cImages[i].width = C.int(b.Dx())
+		cImages[i].height = C.int(b.Dy())
+
+		var pixels *C.uchar
+		if m, ok := img.(*image.NRGBA); ok && m.Stride == b.Dx()*4 {
+			pixels = (*C.uchar)(unsafe.Pointer(&m.Pix[:m.PixOffset(m.Rect.Min.X, m.Rect.Max.Y)][0]))
+		} else {
+			clone := image.NewNRGBA(image.Rect(0, 0, b.Dx(), b.Dy()))
+			draw.Draw(clone, b, img, b.Min, draw.Src)
+			pixels = (*C.uchar)(&m.Pix[0])
+		}
+
+		cImages[i].pixels = pixels
+		pinner.Pin(pixels)
+	}
+
+	var p *C.GLFWimage
+	if count > 0 {
+		p = &cImages[0]
+	}
+
+	C.glfwSetWindowIcon(w.Handle(), C.int(count), p)
 }
 
 func (w *Window) GetFramebufferSize() (int, int) {
