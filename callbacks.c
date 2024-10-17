@@ -6,6 +6,7 @@ void goFramebufferSizeCallback(GLFWwindow *window, int width, int height);
 void goKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
 void goMouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
 void goScrollCallback(GLFWwindow *window, double xoff, double yoff);
+void goRefreshCallback(GLFWwindow *window);
 
 void glfwSetCursorPosCallback_fix(GLFWwindow *window) {
     glfwSetCursorPosCallback(window, (GLFWcursorposfun)goCursorPosCallback);
@@ -29,4 +30,8 @@ void glfwSetMouseButtonCallback_fix(GLFWwindow *window) {
 
 void glfwSetScrollCallback_fix(GLFWwindow *window) {
     glfwSetScrollCallback(window, (GLFWscrollfun)goScrollCallback);
+}
+
+void glfwSetWindowRefreshCallback_fix(GLFWwindow *window) {
+    glfwSetWindowRefreshCallback(window, (GLFWwindowrefreshfun)goRefreshCallback);
 }

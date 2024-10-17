@@ -19,6 +19,7 @@ package glfw
 // void glfwSetKeyCallback_fix(GLFWwindow *window);
 // void glfwSetMouseButtonCallback_fix(GLFWwindow *window);
 // void glfwSetScrollCallback_fix(GLFWwindow *window);
+// void glfwSetWindowRefreshCallback_fix(GLFWwindow *window);
 import "C"
 
 import (
@@ -46,6 +47,7 @@ type Window struct {
 	keyCallback             func(ww *Window, key Key, scancode Scancode, action Action, mods ModifierKey)
 	mouseButtonCallback     func(ww *Window, button MouseButton, action Action, mods ModifierKey)
 	scrollCallback          func(ww *Window, xoff float64, yoff float64)
+	refreshCallback         func(ww *Window)
 }
 
 type VideoMode struct {
@@ -93,6 +95,12 @@ func goScrollCallback(w *C.GLFWwindow, xoff, yoff C.double) {
 	real.scrollCallback(real, float64(xoff), float64(yoff))
 }
 
+//export goRefreshCallback
+func goRefreshCallback(w *C.GLFWwindow) {
+	real := (*Window)(C.glfwGetWindowUserPointer(w))
+	real.refreshCallback(real)
+}
+
 func Init() error {
 	if C.glfwInit() != C.GLFW_TRUE {
 		return fmt.Errorf("initialization failed")
@@ -120,6 +128,7 @@ func CreateWindow(width, height int, title string, monitor *Monitor, share *Wind
 	if handle == nil {
 		return nil, fmt.Errorf("failed to create window")
 	}
+
 	window := &Window{
 		handle:                  handle,
 		cursorPosCallback:       func(w *Window, x float64, y float64) {},
@@ -128,15 +137,18 @@ func CreateWindow(width, height int, title string, monitor *Monitor, share *Wind
 		keyCallback:             func(w *Window, key Key, scancode Scancode, action Action, mods ModifierKey) {},
 		mouseButtonCallback:     func(w *Window, button MouseButton, action Action, mods ModifierKey) {},
 		scrollCallback:          func(w *Window, xoff float64, yoff float64) {},
+		refreshCallback:         func(w *Window) {},
 	}
 
 	C.glfwSetWindowUserPointer(handle, unsafe.Pointer(window))
+
 	C.glfwSetCursorPosCallback_fix(handle)
 	C.glfwSetWindowSizeCallback_fix(handle)
 	C.glfwSetFramebufferSizeCallback_fix(handle)
 	C.glfwSetKeyCallback_fix(handle)
 	C.glfwSetMouseButtonCallback_fix(handle)
 	C.glfwSetScrollCallback_fix(handle)
+	C.glfwSetWindowRefreshCallback_fix(handle)
 
 	return window, nil
 }
@@ -224,6 +236,10 @@ func (w *Window) SetMouseButtonCallback(f func(ww *Window, button MouseButton, a
 
 func (w *Window) SetScrollCallback(f func(ww *Window, xoff float64, yoff float64)) {
 	w.scrollCallback = f
+}
+
+func (w *Window) SetRefreshCallback(f func(ww *Window)) {
+	w.refreshCallback = f
 }
 
 func (w *Window) SetIcon(images []image.Image) {
