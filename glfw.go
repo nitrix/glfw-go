@@ -246,6 +246,12 @@ func (w *Window) SetMonitor(m *Monitor, x, y, width, height, refreshRate int) {
 	C.glfwSetWindowMonitor(w.Handle(), (*C.GLFWmonitor)(m), (C.int)(x), (C.int)(y), (C.int)(width), (C.int)(height), (C.int)(refreshRate))
 }
 
+func (w *Window) GetPos() (int, int) {
+	var x, y C.int
+	C.glfwGetWindowPos(w.Handle(), &x, &y)
+	return int(x), int(y)
+}
+
 func (w *Window) SetIcon(images []image.Image) {
 	count := len(images)
 
