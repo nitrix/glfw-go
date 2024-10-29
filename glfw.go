@@ -319,17 +319,6 @@ func (w *Window) GetWindowUserPointer() unsafe.Pointer {
 	return w.userPtr
 }
 
-func (w *Window) Centerize() {
-	primary := GetPrimaryMonitor()
-	if primary != nil {
-		mode := primary.GetVideoMode()
-		if mode != nil {
-			x, y := w.GetSize()
-			w.SetPos((mode.Width/2)-(x/2), (mode.Height/2)-(y/2))
-		}
-	}
-}
-
 func (m *Monitor) GetVideoMode() *VideoMode {
 	videoMode := C.glfwGetVideoMode((*C.GLFWmonitor)(m))
 	return &VideoMode{

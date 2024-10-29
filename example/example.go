@@ -25,7 +25,6 @@ func main() {
 		}
 	})
 
-	window.Centerize()
 	window.Show()
 
 	for !window.ShouldClose() {
