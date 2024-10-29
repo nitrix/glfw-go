@@ -242,6 +242,10 @@ func (w *Window) SetRefreshCallback(f func(ww *Window)) {
 	w.refreshCallback = f
 }
 
+func (w *Window) SetWindowMonitor(m *Monitor, x, y, width, height, refreshRate int) {
+	C.glfwSetWindowMonitor(w.Handle(), (*C.GLFWmonitor)(m), (C.int)(x), (C.int)(y), (C.int)(width), (C.int)(height), (C.int)(refreshRate))
+}
+
 func (w *Window) SetIcon(images []image.Image) {
 	count := len(images)
 
