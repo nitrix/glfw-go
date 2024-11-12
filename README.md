@@ -1,6 +1,6 @@
 # glfw-go
 
-A binding for glfw in Go.
+A binding library of glfw for Go.
 
 ## Example
 
