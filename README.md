@@ -12,7 +12,7 @@ The sources for it are located here [example/example.go](example/example.go).
 
 ## Usage
 
-The API is kept intentionally compatible and swappable with `github.com/go-gl/glfw`. You may either import directly `github.com/nitrix/glfw-go` or if you have too many transitive dependencies to change you could use a `go.mod` replace directive like `replace github.com/go-gl/glfw => github.com/nitrix/glfw-go` to your `go.mod` file.
+The API is kept intentionally compatible and swappable with `github.com/go-gl/glfw`. You may either import directly `github.com/nitrix/glfw-go` or, if you have too many transitive dependencies to change, might want to use a replace directive like `replace github.com/go-gl/glfw => github.com/nitrix/glfw-go` in your `go.mod` file.
 
 ## Credits
 
